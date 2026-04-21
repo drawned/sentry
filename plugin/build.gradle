@@ -1,0 +1,48 @@
+plugins {
+    id("xyz.jpenilla.run-paper") version "2.3.1"
+
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+dependencies {
+    implementation project(':api')
+    implementation 'com.github.Anon8281:UniversalScheduler:0.1.7'
+
+    compileOnly 'org.geysermc.geyser:api:2.9.5-SNAPSHOT'
+    compileOnly 'org.geysermc.floodgate:api:2.2.4-SNAPSHOT'
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+    maven { url "https://repo.opencollab.dev/main/" }
+}
+
+shadowJar {
+    relocate 'com.github.Anon8281.universalScheduler', 'libs.universalscheduler'
+
+    archiveClassifier.set('')
+    archiveFileName.set("Sentry-${project.version}-unob.jar")
+}
+
+tasks {
+    runServer {
+        minecraftVersion("1.20.1")
+    }
+
+    jar {
+        enabled(false)
+    }
+
+    build {
+        dependsOn(shadowJar)
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}

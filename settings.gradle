@@ -1,0 +1,4 @@
+rootProject.name = 'Sentry'
+
+include 'api'
+include 'plugin'

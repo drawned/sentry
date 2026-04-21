@@ -1,0 +1,13 @@
+dependencies {
+
+}
+
+dependencies {
+    //implementation project(':plugin')
+}
+
+tasks {
+    jar {
+        archiveFileName.set("Sentry-${project.version}-api.jar")
+    }
+}
