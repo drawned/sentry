@@ -15,6 +15,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: setup this guy
+        run: chmod +x gradlew
       - name: gradlew build time
         run: ./gradlew build
       - name: action-gh-release
