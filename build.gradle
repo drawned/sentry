@@ -2,11 +2,14 @@ plugins {
     id 'java'
 }
 
+project.group = "dev.square"
+project.version = "1.4.0"
+
 subprojects {
     apply plugin: 'java'
 
-    group = 'dev.square'
-    version = '1.4.0-RELEASE'
+    group = rootProject.group
+    version = rootProject.version
 
     repositories {
         mavenCentral()
@@ -30,5 +33,18 @@ subprojects {
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
         options.release.set(17)
+    }
+}
+
+tasks.register('pushAPI') {
+    doLast {
+        def tagName = "v${rootProject.version}"
+
+        println "Sending ${tagName}"
+
+        exec { commandLine 'git', 'tag', tagName }
+        exec { commandLine 'git', 'push', 'origin', tagName }
+
+        println "Sent to GitHub: ${tagName}"
     }
 }

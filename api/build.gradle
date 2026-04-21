@@ -1,10 +1,4 @@
-dependencies {
-
-}
-
-dependencies {
-    //implementation project(':plugin')
-}
+dependencies {}
 
 tasks {
     jar {

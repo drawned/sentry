@@ -1,0 +1,25 @@
+name: push API releases
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Temurin 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: gradlew build time
+        run: ./gradlew build
+      - name: action-gh-release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: api/build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
