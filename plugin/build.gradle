@@ -18,7 +18,7 @@ repositories {
 }
 
 shadowJar {
-    relocate 'com.github.Anon8281.universalScheduler', 'libs.universalscheduler'
+    relocate 'com.github.Anon8281.universalScheduler', 'libs.scheduling'
 
     archiveClassifier.set('')
     archiveFileName.set("Sentry-${project.version}-unob.jar")
