@@ -2,11 +2,22 @@ package dev.square.api.events.module;
 
 import dev.square.api.entity.SentryPlayer;
 import lombok.Getter;
-
-import java.util.List;
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class ClientTriggerEvent extends ModuleEvent {
+    private static final HandlerList HANDLERS = new HandlerList();
+
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
+
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
     private final SentryPlayer sentryPlayer;
     private final String clientName;
     private final String clientId;
