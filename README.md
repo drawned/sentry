@@ -70,7 +70,7 @@ Example to retrieve a player's security instance:
 
 ```java
 import dev.square.api.SentryAPI;
-import dev.square.api.player.SentryPlayer;
+import dev.square.api.entity.SentryPlayer;
 
 // Retrieving a player instance
 SentryPlayer sentryPlayer = SentryAPI.getPlayerManager().get(player);
