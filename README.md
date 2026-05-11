@@ -1,6 +1,6 @@
 # Sentry
 
-Sentry is an all-in-one **server security** solution designed to protect your Minecraft server from common threats. It includes protection against unauthorized client modifications, hacked clients, malicious bots, VPN/Proxy connections, crash-items, and unauthorized OP assignments.
+Sentry is an all-in-one **server security** solution designed to protect your Minecraft server from common threats. It includes protection against unauthorized client modifications, hacked clients, malicious bots, VPN/Proxy connections, crash-items, and more!
 
 ### Downloading
 - [SpigotMC](https://www.spigotmc.org/resources/102233/)
@@ -62,7 +62,7 @@ Add the dependency:
 
 ---
 
-## Usage
+### Usage
 
 You can access the main management interface through the [SentryAPI](https://github.com/drawned/sentry/blob/master/api/src/main/java/dev/square/api/SentryAPI.java) class.
 
@@ -70,7 +70,7 @@ Example to retrieve a player's security instance:
 
 ```java
 import dev.square.api.SentryAPI;
-import dev.square.api.player.SentryPlayer;
+import dev.square.api.entity.SentryPlayer;
 
 // Retrieving a player instance
 SentryPlayer sentryPlayer = SentryAPI.getPlayerManager().get(player);
