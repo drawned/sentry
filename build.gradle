@@ -3,7 +3,7 @@ plugins {
 }
 
 project.group = "dev.square"
-project.version = "1.4.2"
+project.version = "1.4.3"
 
 subprojects {
     apply plugin: 'java'

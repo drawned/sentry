@@ -1,5 +1,6 @@
 package dev.square.api.events.module;
 
+import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -28,5 +29,18 @@ public class ModuleEvent extends Event implements Cancellable {
     @Override
     public void setCancelled(boolean b) {
         this.cancelled = b;
+    }
+
+    /**
+     * TODO: Move to record on a future update (would also drop version support)
+     */
+    @Getter
+    public static class ClientEntry {
+        private final String name;
+        private final String id;
+        public ClientEntry(String name, String id) {
+            this.name = name;
+            this.id = id;
+        }
     }
 }
