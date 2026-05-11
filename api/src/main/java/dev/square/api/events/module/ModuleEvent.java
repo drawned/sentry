@@ -31,9 +31,7 @@ public class ModuleEvent extends Event implements Cancellable {
         this.cancelled = b;
     }
 
-    /**
-     * TODO: Move to record on a future update (would also drop version support)
-     */
+    // TODO: Move to record on a future update (would also drop version support)
     @Getter
     public static class ClientEntry {
         private final String name;
