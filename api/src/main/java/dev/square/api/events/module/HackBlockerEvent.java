@@ -6,6 +6,14 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This even triggers everytime the HackBlocker module:
+ * - Starts checking a player (Cancelling the event will stop all future checks for this player)
+ * - Just checked a player (Cancelling the event will cancel all Sentry actions for this player)
+ * - Ended all checks for a player (Cancelling is not possible, get all results through the {@link SentryPlayer} class.)
+ * Check the {@link HackBlockerPhase} phase to get more details.
+ * ClientEntry is only valid ant not null when the phase ({@link HackBlockerPhase}) is TRIGGER.
+ */
 @Getter
 public class HackBlockerEvent extends ModuleEvent {
 
