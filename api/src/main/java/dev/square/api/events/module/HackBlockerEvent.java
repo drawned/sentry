@@ -30,7 +30,7 @@ public class HackBlockerEvent implements SentryEvent.CancellableSentryEvent {
     }
 
     /**
-     * Event Phase of the verification process for {@link dev.square.api.events.module.spigot.HackBlockerEvent}
+     * Event Phase of the verification process for {@link HackBlockerEvent}
      */
     public enum HackBlockerPhase {
         /** Initial phase. Cancelling the event also cancels all future checks for the player. */
