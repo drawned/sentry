@@ -1,6 +1,8 @@
 package dev.square.api;
 
 import dev.square.api.events.EventBus;
+import dev.square.api.events.module.AntiVPNCheckEvent;
+import dev.square.api.events.module.ClientBlockerEvent;
 import dev.square.api.manager.IPlayerManager;
 import lombok.Getter;
 import lombok.Setter;

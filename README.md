@@ -18,21 +18,17 @@ Sentry provides an API for developers who need to interact with player security 
 
 To use the Sentry API in your project, add the JitPack repository and the dependency to your build configuration.
 
-Replace `LATEST` with the latest API [release from here](https://github.com/drawned/sentry/releases/latest).
+Replace `LATEST` with the latest stable API [release from here](https://github.com/drawned/sentry/releases/latest).
 
 ### Gradle (build.gradle)
 
-Add the JitPack repository to your `repositories` block:
+Add the JitPack repository to your `repositories` block, and the dependency to your `dependencies` block:
 
 ```gradle
 repositories {
     maven { url = 'https://jitpack.io' }
 }
-```
 
-Add the dependency:
-
-```gradle
 dependencies {
     compileOnly 'com.github.drawned.sentry:api:LATEST'
 }
@@ -40,24 +36,24 @@ dependencies {
 
 ### Maven (pom.xml)
 
-Add the JitPack repository to your `repositories` block:
+Add the JitPack repository to your `repositories` block, and the dependency to your `dependencies` block:
 
 ```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 
-Add the dependency:
-
-```xml
-<dependency>
-    <groupId>com.github.drawned.sentry</groupId>
-    <artifactId>api</artifactId>
-    <version>LATEST</version>
-    <scope>provided</scope>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.github.drawned.sentry</groupId>
+        <artifactId>api</artifactId>
+        <version>LATEST</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
 ```
 
 ---
@@ -79,4 +75,26 @@ if (sentryPlayer != null) {
 }
 ```
 
-Make sure that your plugin loads after Sentry by adding `depend: [Sentry]` (or `softdepend: [Sentry]`) to your `plugin.yml` file.
+Example of how you can listen to API events, does not depend on the platform:
+
+```java
+import dev.square.api.SentryAPI;
+import dev.square.api.events;
+import dev.square.api.events.module.AntiVPNCheckEvent;
+import dev.square.api.entity.SentryPlayer;
+
+SentryAPI.getEventBus().register(AntiVPNCheckEvent.class, (event) -> {
+    if(event.getConnectionType() == AntiVPNCheckEvent.ConnectionType.VPN) {
+        event.setCancelled(true);
+        return;
+    }
+    
+    final UUID uuid = event.getSentryPlayer().getUniqueId();
+    
+    // do your things here
+    Bukkit.getPlayer(uuid);                          // Paper
+    MinecraftServer.getPlayerList().getPlayer(uuid); // Fabric
+});
+```
+
+If you are using the API on a Bukkit plugin, make sure that your plugin loads after Sentry by adding `depend: [Sentry]` (or `softdepend: [Sentry]`) to your `plugin.yml` file.
