@@ -2,12 +2,12 @@
 
 Sentry is an all-in-one **server security** solution designed to protect your Minecraft server from common threats. It includes protection against unauthorized client modifications, hacked clients, malicious bots, VPN/Proxy connections, crash-items, and more!
 
-### Downloading
+## Downloading
 - [SpigotMC](https://www.spigotmc.org/resources/102233/)
 - [Modrinth](https://modrinth.com/plugin/sentry-plugin)
 
-### Documentation (Wiki)
-You can access the plugin's official documentation using this link: 
+## Documentation (Wiki)
+You can access the official documentation using this link: 
 https://squareplugins.gitbook.io/sentry
 
 ---
