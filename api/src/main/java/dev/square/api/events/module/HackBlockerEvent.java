@@ -1,39 +1,36 @@
 package dev.square.api.events.module;
 
 import dev.square.api.entity.SentryPlayer;
+import dev.square.api.events.SentryEvent;
 import lombok.Getter;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * This even triggers everytime the HackBlocker module:
  * - Starts checking a player (Cancelling the event will stop all future checks for this player)
  * - Just checked a player (Cancelling the event will cancel all Sentry actions for this player)
  * - Ended all checks for a player (Cancelling is not possible, get all results through the {@link SentryPlayer} class.)
- * Check the {@link HackBlockerPhase} phase to get more details.
- * ClientEntry is only valid ant not null when the phase ({@link HackBlockerPhase}) is TRIGGER.
+ * Check the {@link HackBlockerEvent.HackBlockerPhase} phase to get more details.
+ * ClientEntry is only valid ant not null when the phase ({@link HackBlockerEvent.HackBlockerPhase}) is TRIGGER.
  */
-@Getter
-public class HackBlockerEvent extends ModuleEvent {
+public class HackBlockerEvent implements SentryEvent.CancellableSentryEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
+    private final @Getter SentryPlayer sentryPlayer;
+    private final @Getter ClientEntry detected;
+    private final @Getter HackBlockerPhase phase;
 
-    private final SentryPlayer sentryPlayer;
-    private final @Nullable ClientEntry detected;
-    private final HackBlockerPhase phase;
+    private boolean cancelled = false;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+    @Override public boolean isCancelled() { return cancelled; }
+    @Override public void setCancelled(boolean cancel) { this.cancelled = cancel; }
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
+    public HackBlockerEvent(SentryPlayer sentryPlayer, ClientEntry detected, HackBlockerPhase phase) {
+        this.sentryPlayer = sentryPlayer;
+        this.detected = detected;
+        this.phase = phase;
     }
 
     /**
-     * Event Phase of the verification process for {@link HackBlockerEvent}
+     * Event Phase of the verification process for {@link dev.square.api.events.module.spigot.HackBlockerEvent}
      */
     public enum HackBlockerPhase {
         /** Initial phase. Cancelling the event also cancels all future checks for the player. */
@@ -42,12 +39,5 @@ public class HackBlockerEvent extends ModuleEvent {
         TRIGGER,
         /** Final phase. All detections are available through the {@link dev.square.api.entity.SentryPlayer} class. */
         END
-    }
-
-    public HackBlockerEvent(final SentryPlayer sentryPlayer, final @Nullable ClientEntry detected,
-                            final HackBlockerPhase phase) {
-        this.sentryPlayer = sentryPlayer;
-        this.detected = detected;
-        this.phase = phase;
     }
 }

@@ -13,17 +13,11 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven {
-            name = "papermc-repo"
-            url = "https://repo.papermc.io/repository/maven-public/"
-        }
     }
 
     dependencies {
         compileOnly("org.projectlombok:lombok:1.18.44")
         annotationProcessor("org.projectlombok:lombok:1.18.44")
-
-        compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
     }
 
     tasks.withType(JavaCompile).configureEach {

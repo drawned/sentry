@@ -1,44 +1,29 @@
 package dev.square.api.events.module;
 
 import dev.square.api.entity.SentryPlayer;
+import dev.square.api.events.SentryEvent;
 import lombok.Getter;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * This event triggers when a player gets checked by the Anti-VPN module,
  * Check the ConnectionType to be able to distinguish if the player is indeed using a VPN/Proxy.
  */
-@Getter
-public class AntiVPNCheckEvent extends ModuleEvent {
-    private static final HandlerList HANDLERS = new HandlerList();
+public class AntiVPNCheckEvent implements SentryEvent.CancellableSentryEvent {
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+    private final @Getter SentryPlayer sentryPlayer;
+    private final @Getter ConnectionType connectionType;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
-
-    private final SentryPlayer sentryPlayer;
-    private final ConnectionType connectionType;
+    private boolean cancelled = false;
 
     public AntiVPNCheckEvent(SentryPlayer sentryPlayer, ConnectionType connectionType) {
         this.sentryPlayer = sentryPlayer;
         this.connectionType = connectionType;
     }
 
-    /**
-     * Returns if this player is using a VPN/Proxy or even both at the same time.
-     * @return boolean that if false = player is not using anything
-     */
-    public boolean isUsing() {
-        return this.connectionType != ConnectionType.NOT_USING;
-    }
+    @Override public boolean isCancelled() { return cancelled; }
+    @Override public void setCancelled(boolean cancel) { this.cancelled = cancel; }
 
-    public enum ConnectionType {
+    public static enum ConnectionType {
         PROXY("Proxy"),
         VPN("VPN"),
         ALL("VPN & Proxy"),

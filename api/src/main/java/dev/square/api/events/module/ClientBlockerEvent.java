@@ -1,9 +1,8 @@
 package dev.square.api.events.module;
 
 import dev.square.api.entity.SentryPlayer;
+import dev.square.api.events.SentryEvent;
 import lombok.Getter;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * This even triggers everytime the Client Blocker module checks a player,
@@ -11,24 +10,17 @@ import org.jetbrains.annotations.NotNull;
  * Cancelling the event will cancel all Sentry actions for the player, however the check
  * will still happen and will still be logged.
  */
-@Getter
-public class ClientBlockerEvent extends ModuleEvent {
+public class ClientBlockerEvent implements SentryEvent.CancellableSentryEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
+    private final @Getter SentryPlayer sentryPlayer;
+    private final @Getter ClientEntry detected;
 
-    private final SentryPlayer sentryPlayer;
-    private final @NotNull ClientEntry detected;
+    private boolean cancelled = false;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+    @Override public boolean isCancelled() { return cancelled; }
+    @Override public void setCancelled(boolean cancel) { this.cancelled = cancel; }
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public ClientBlockerEvent(final SentryPlayer sentryPlayer, final @NotNull ClientEntry detected) {
+    public ClientBlockerEvent(final SentryPlayer sentryPlayer, final ClientEntry detected) {
         this.sentryPlayer = sentryPlayer;
         this.detected = detected;
     }

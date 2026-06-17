@@ -3,7 +3,7 @@
 /api/build/
 /api/build/classes/java/main/
 /build/
-/plugin/build/
-/plugin/build/classes/java/main/
-/fabric/build/
-/fabric/build/classes/java/main/
+/core/plugin/build/
+/core/plugin/build/classes/java/main/
+/core/fabric/build/
+/core/fabric/build/classes/java/main/

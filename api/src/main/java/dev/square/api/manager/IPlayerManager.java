@@ -1,7 +1,6 @@
 package dev.square.api.manager;
 
 import dev.square.api.entity.SentryPlayer;
-import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -24,11 +23,6 @@ public interface IPlayerManager {
     Collection<SentryPlayer> getSentryPlayers();
 
     /**
-     * Finds a {@link SentryPlayer} by the bukkit {@link Player}.
-     */
-    SentryPlayer get(Player player);
-
-    /**
      * Finds a {@link SentryPlayer} by {@link UUID}.
      */
     SentryPlayer get(UUID uuid);
@@ -36,5 +30,5 @@ public interface IPlayerManager {
     /**
      * Finds a {@link SentryPlayer} using {@link Optional} for safety.
      */
-    Optional<SentryPlayer> find(Player player);
+    Optional<SentryPlayer> find(UUID uuid);
 }
