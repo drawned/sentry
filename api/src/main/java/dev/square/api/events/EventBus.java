@@ -1,7 +1,5 @@
 package dev.square.api.events;
 
-import dev.square.api.events.module.AntiVPNCheckEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

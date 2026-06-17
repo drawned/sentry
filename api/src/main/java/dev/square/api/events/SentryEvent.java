@@ -2,8 +2,6 @@ package dev.square.api.events;
 
 import lombok.Getter;
 
-import java.util.function.Consumer;
-
 public interface SentryEvent {
 
     interface CancellableSentryEvent extends SentryEvent {
