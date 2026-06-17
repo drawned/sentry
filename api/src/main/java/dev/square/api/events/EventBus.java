@@ -23,6 +23,7 @@ public class EventBus {
                 .add((event) -> listener.accept((T) event));
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean call(SentryEvent event) {
         List<Consumer<SentryEvent>> eventListeners = listeners.get(event.getClass());
         if (eventListeners != null) {

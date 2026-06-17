@@ -11,8 +11,7 @@ import java.util.UUID;
  * This class is used by Sentry to handle (create, remove, update)
  * players automatically.
  * <p>
- * If you are looking to retrieve a player instance, use the {@link #get(Player)}
- * or {@link #get(UUID)} methods.
+ * If you are looking to retrieve a player instance, use {@link #get(UUID)} or {@link #find(UUID)}
  *
  * @see SentryPlayer
  */

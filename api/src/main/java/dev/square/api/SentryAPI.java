@@ -7,9 +7,7 @@ import lombok.Setter;
 
 public class SentryAPI {
     private static @Getter @Setter EventBus eventBus;
-
-    @Setter
-    private static IPlayerManager playerManager;
+    private static @Setter IPlayerManager playerManager;
 
     public static IPlayerManager getPlayerManager() {
         if (playerManager == null) {
@@ -17,5 +15,4 @@ public class SentryAPI {
         }
         return playerManager;
     }
-
 }
