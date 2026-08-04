@@ -3,7 +3,7 @@ plugins {
 }
 
 project.group = "dev.square"
-project.version = "1.5.0"
+project.version = "1.5.2"
 
 subprojects {
     apply plugin: 'java'
@@ -22,19 +22,20 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
-        options.release.set(17)
+        options.release.set(21)
     }
 }
 
-tasks.register('pushAPI') {
-    doLast {
-        def tagName = "v${rootProject.version}"
-
+tasks.register('pushAPI', Exec) {
+    def tagName = "v${rootProject.version}"
+    doFirst {
         println "Sending ${tagName}"
-
-        exec { commandLine 'git', 'tag', tagName }
-        exec { commandLine 'git', 'push', 'origin', tagName }
-
-        println "Sent to GitHub: ${tagName}"
     }
+
+    commandLine 'git', 'tag', tagName
+    finalizedBy 'pushTag'
+}
+
+tasks.register('pushTag', Exec) {
+    commandLine 'git', 'push', 'origin', "v${rootProject.version}"
 }
